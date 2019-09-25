@@ -5,12 +5,13 @@
       <button v-bind:disabled="productUrl == ''"> Search</button>      
     </form>
     <br/>
-    {{productJson}}
   </div>
 </template>
 
 <script>
-const EXPORT_URL_REGEXP = /(?:ML)[a-zA-Z0-9](\-)[0-9]+/
+const EXPORT_URL_REGEXP = /(?:ML)[a-zA-Z0-9](-)[0-9]+/
+const SERVER_URL = 'http://localhost:3000/search/'
+
 import axios from 'axios'
 export default {
   data(){
@@ -29,8 +30,10 @@ export default {
     async searchProduct() {
       try {
         const $productKey = this.getProductKey()
-        const $search = await axios.get('http://localhost:3000/search/' + $productKey)
+        const $search = await axios.get(SERVER_URL + $productKey)
         this.productJson = $search.data
+        this.productUrl = ''
+        this.$emit('product-search', this.productJson)
       } catch(er) {
         //console.log(er)
       }         
