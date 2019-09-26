@@ -1,17 +1,23 @@
 <template>
-  <div class="product">
-    <h1>{{product.title}}</h1>
-    <p>Precio: {{product.currency_id}}${{product.price}}</p>
-    <p>Acepta Mercadopago?: {{product.accepts_mercadopago == true ? 'Si' : 'No'}}</p>
-    <p>Publicación finaliza en: {{product.stop_time}}</p>
-    <p>Cantidad disponible: {{product.available_quantity}}</p>
-    <img :src="product.pictures[0].url" width="200" height="200"/>
-  </div>
+  <b-card 
+    class="product mb-3"
+    v-bind:title="cardTitle"
+    v-bind:img-src="product.pictures[0].url"
+    v-bind:img-alt="product.title"
+    img-left
+  >
+    <b-card-text>
+      <p>Precio: {{product.currency_id}}${{product.price}}</p>
+      <p>Acepta Mercadopago?: {{product.accepts_mercadopago == true ? 'Si' : 'No'}}</p>
+      <p>Publicación finaliza en: {{product.stop_time}}</p>
+      <p>Cantidad disponible: {{product.available_quantity}}</p>
+    </b-card-text>
+  </b-card>
+
 </template>
 
 <script>
 
-import axios from 'axios'
 /*accepts_mercadopago: true
 available_quantity: 1
 currency_id: "ARS"
@@ -27,6 +33,13 @@ export default {
   },
   data(){
     return {}
+  },
+  computed: {
+    cardTitle() {
+      var $title = this.product.title
+      var $price = '(' + this.product.currency_id.toLowerCase() + ')' + '$' + this.product.price
+      return $title + ' ' + $price
+    }
   },
   methods: {}
 }

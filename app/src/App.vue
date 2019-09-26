@@ -1,8 +1,27 @@
 <template>
   <div id="app">    
-    <ProductSearch v-on:product-search="pushProduct"/>
-    <hr/>
-    <Product v-for="product in products" v-bind:key="product.id" :product="product"/>
+    <b-container>
+      <b-col cols="12">
+        <router-view></router-view>
+      </b-col>
+
+    <!--<b-container>
+      <b-row>
+        <b-col cols="12">
+          <ProductSearch v-on:product-search="pushProduct"/>
+        </b-col>
+      </b-row>
+      <hr/>
+      <b-row>        
+        <b-col cols="12">
+          <Product v-for="product in products" v-bind:key="product.id" :product="product"/>
+        </b-col>
+      </b-row>-->
+      
+      
+      
+    </b-container>
+    
   </div>
 </template>
 
@@ -19,9 +38,7 @@ export default {
   },
   methods: {
     pushProduct($productData) {
-      this.products.push($productData)
-      console.log(this.products)
-        
+      this.products.push($productData)        
     }
   },
   components: {
@@ -32,6 +49,9 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: #1e1e2d!important
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

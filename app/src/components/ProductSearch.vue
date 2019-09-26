@@ -1,11 +1,19 @@
 <template>
-  <div class="hello">
-    <form v-on:submit.prevent="searchProduct">
-      <input type="text" v-model="productUrl" placeholder="Product Url"/>
-      <button v-bind:disabled="productUrl == ''"> Search</button>      
-    </form>
+  <b-row>
+      <b-col cols="12">
+        <b-form v-on:submit.prevent="searchProduct">
+          <b-form-group>
+            <b-col cols="9" class="float-left">              
+              <b-form-input type="text" v-model="productUrl" placeholder="Product Url"></b-form-input>
+            </b-col>
+            <b-col cols="3" class="float-left">              
+              <b-button type="submit" variant="primary">Submit</b-button>
+            </b-col>                      
+          </b-form-group>
+        </b-form>        
+      </b-col>        
     <br/>
-  </div>
+  </b-row>
 </template>
 
 <script>
