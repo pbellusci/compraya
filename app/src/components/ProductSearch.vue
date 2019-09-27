@@ -7,7 +7,12 @@
               <b-form-input type="text" v-model="productUrl" placeholder="Product Url"></b-form-input>
             </b-col>
             <b-col cols="3" class="float-left">              
-              <b-button type="submit" variant="primary">Submit</b-button>
+              <b-button type="submit" variant="primary"  v-show="!searching">Submit</b-button>
+              <b-button type="submit" variant="primary" disabled v-show="searching"> 
+                Searching 
+                <i class="fa fa-spinner fa-spin"/>
+              </b-button>
+
             </b-col>                      
           </b-form-group>
         </b-form>        
@@ -17,34 +22,26 @@
 </template>
 
 <script>
-const EXPORT_URL_REGEXP = /(?:ML)[a-zA-Z0-9](-)[0-9]+/
-const SERVER_URL = 'http://localhost:3000/search/'
 
-import axios from 'axios'
+import Search from '../lib/product_search.js'
 export default {
   data(){
     return {
       productUrl: '',
-      productJson: {}
+      productJson: {},
+      searching: false
     }
   },
   methods: {
-    getProductKey() {
-      var url = this.productUrl.match(EXPORT_URL_REGEXP)
-      url = typeof url[0] != 'undefined' ? url[0] : ''
-      url = url.replace('-', '')
-      return url
-    },
     async searchProduct() {
+      this.searching = true
       try {
-        const $productKey = this.getProductKey()
-        const $search = await axios.get(SERVER_URL + $productKey)
+        const $search = await Search.search(this.productUrl)        
         this.productJson = $search.data
         this.productUrl = ''
         this.$emit('product-search', this.productJson)
-      } catch(er) {
-        //console.log(er)
-      }         
+      } catch(er) {}         
+      this.searching = false
     }
   }
 }

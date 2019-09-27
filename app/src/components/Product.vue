@@ -40,8 +40,12 @@ export default {
       var $price = '(' + this.product.currency_id.toLowerCase() + ')' + '$' + this.product.price
       return $title + ' ' + $price
     }
+  },  
+  methods: {
+    pushProduct($productData) {
+      this.products.push($productData)        
+    }
   },
-  methods: {}
 }
 </script>
 

@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import ProductSearch from './components/ProductSearch.vue'
-import Product from './components/Product.vue'
+
+import axios from 'axios'
 
 export default {
   name: 'app',
@@ -36,15 +36,21 @@ export default {
       products: []
     }
   },
+  mounted() {
+    /*var $url = 'https://api.mercadolibre.com/items/MLA723699521.json'
+    try {
+      const $data = axios.get($url)
+      console.log($data.data)
+    } catch(er) {
+
+    }*/
+  },
   methods: {
     pushProduct($productData) {
       this.products.push($productData)        
     }
   },
-  components: {
-    ProductSearch,
-    Product
-  }
+  components: {}
 }
 </script>
 
