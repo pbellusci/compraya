@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import {firestorePlugin} from 'vuefire'
 
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -10,6 +11,7 @@ import SignUp from './components/SignUp.vue'
 import ProductList from './components/ProductList.vue'
 
 Vue.use(VueRouter)
+Vue.use(firestorePlugin)
 
 const routes = [
   { path: '/signup', component: SignUp },

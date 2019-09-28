@@ -66,7 +66,7 @@
                 
                 
                 <b-form-group>
-                    <b-button type="submit" variant="primary">Submit</b-button>
+                    <submit-button ref="submit"/>
                 </b-form-group>
                 
             </b-form>
@@ -77,6 +77,10 @@
 </template>
 
 <script>
+
+import User from '../models/user'
+import SubmitButton from './SubmitButton.vue'
+
 export default {
   data() {
     return {
@@ -102,8 +106,14 @@ export default {
             }
 
         },
-      onSubmit(){}
-  }  
+      onSubmit(){
+        const $user = new User(this.form);
+        this.$refs.submit.toggle()
+        $user.create();
+        this.$refs.submit.toggle()
+      },      
+  },
+  components: {'submit-button': SubmitButton}
 }
 </script>
 
