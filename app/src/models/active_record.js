@@ -9,8 +9,8 @@ export default class ActiveRecord {
         this.formdata = formdata
     }
 
-    save(table, success) {
-        this.table(table).push(this.formdata, success) 
+    async save(table, success) {
+        return this.table(table).push(this.formdata, success) 
     }
     
     table = (name) => db.ref(name)

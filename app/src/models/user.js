@@ -6,9 +6,13 @@ export default class User extends ActiveRecord {
         super(formdata)
     }
 
-    create() {
-        super.save('user', (error) =>{
-            debugger
+    async create() {
+        return await super.save('user', (error) => {
+            if(error) {
+                return false
+            } else {
+                return true;
+            }
         })
     }
 }

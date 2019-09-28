@@ -12,6 +12,7 @@
     <b-row>
         <b-col cols="12">
             <b-alert v-bind:show="show_error" variant="danger">{{form_error}}</b-alert>
+            <b-alert v-bind:show="show_success" variant="success">{{form_success}}</b-alert>c
         </b-col>
     </b-row>
 
@@ -92,7 +93,9 @@ export default {
             password_confirm: '',
         },
         show_error: false,
-        form_error: ''
+        show_success: false,
+        form_error: 'There was an error with form',
+        form_success: 'Account created successfuly'
     }
   },
   methods: {
@@ -106,12 +109,23 @@ export default {
             }
 
         },
-      onSubmit(){
-        const $user = new User(this.form);
-        this.$refs.submit.toggle()
-        $user.create();
-        this.$refs.submit.toggle()
-      },      
+        clearAlerts() {
+            this.show_success, this.show_error = false
+        },
+
+        async onSubmit(){
+            this.clearAlerts()
+            const $user = new User(this.form);
+            this.$refs.submit.toggle()
+            const newUser = await $user.create();
+            if(newUser === false) {
+                this.show_error = true
+            } else {
+                this.show_success = true
+            }
+                
+            this.$refs.submit.toggle()
+        },      
   },
   components: {'submit-button': SubmitButton}
 }
